@@ -1,0 +1,285 @@
+/* =============================================
+   HOME PAGE — Loki Stores
+============================================= */
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 120px 44px 80px;
+  max-width: 1240px;
+  margin: 0 auto;
+  gap: 60px;
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+}
+.hero-in { opacity: 1; transform: translateY(0); }
+.hero-left  { flex: 1; max-width: 580px; }
+.hero-right { flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+
+/* Eyebrow */
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--green-lt); margin-bottom: 24px;
+  animation: line-rise 0.7s 0.3s both;
+}
+.he-rune { color: var(--gold); font-size: 14px; }
+.he-bar  { flex: 1; max-width: 40px; height: 1px; background: var(--border-g); }
+
+/* H1 */
+.hero-h1 {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  margin-bottom: 24px;
+  animation: line-rise 0.8s 0.45s both;
+}
+.hh-line1 { display: block; color: var(--txt); }
+.hh-line2 { display: block; color: var(--gold-lt); }
+
+.hero-p {
+  font-size: 15px; color: var(--txt-dim); line-height: 1.7; margin-bottom: 36px;
+  animation: line-rise 0.8s 0.6s both;
+}
+.hero-p em { color: var(--green-lt); font-style: normal; }
+
+/* Buttons */
+.hero-btns {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 48px;
+  animation: line-rise 0.8s 0.75s both;
+}
+.hbtn-primary {
+  position: relative; display: flex; align-items: center; gap: 10px;
+  padding: 14px 32px; border-radius: 8px;
+  background: var(--green); border: 1px solid var(--green-lt);
+  color: var(--txt); font-family: 'Cinzel', serif; font-size: 13px;
+  letter-spacing: 2px; text-transform: uppercase; overflow: hidden;
+  transition: all 0.3s;
+}
+.hbtn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(45,106,79,0.5); }
+.hbtn-arrow { font-size: 16px; transition: transform 0.3s; }
+.hbtn-primary:hover .hbtn-arrow { transform: translateX(4px); }
+.hbtn-shimmer {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transform: translateX(-100%);
+}
+.hbtn-primary:hover .hbtn-shimmer { transform: translateX(100%); transition: transform 0.55s; }
+
+.hbtn-ghost {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 24px; border-radius: 8px;
+  background: transparent; border: 1px solid var(--border);
+  color: var(--txt-dim); font-size: 13px; letter-spacing: 0.5px;
+  transition: all 0.3s;
+}
+.hbtn-ghost:hover { border-color: var(--border-h); color: var(--txt); }
+.hbtn-play {
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 1px solid rgba(201,168,76,0.4);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; color: var(--gold);
+}
+
+/* Stats */
+.hero-stats {
+  display: flex; gap: 40px;
+  animation: line-rise 0.8s 0.9s both;
+}
+
+.hs-num {
+  font-family: 'Cinzel', serif; font-size: 28px; font-weight: 900;
+  color: var(--gold); line-height: 1;
+}
+.hs-label { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--txt-faint); margin-top: 4px; }
+
+@keyframes line-rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════
+   ORBIT — TASK 3: Slowly rotating satellites
+   ══════════════════════════════════════*/
+.hero-orb-wrap {
+  position: relative;
+  width: 340px; height: 340px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* Static decorative rings */
+.orb-ring {
+  position: absolute; border-radius: 50%; border: 1px solid;
+  animation: orb-spin linear infinite;
+  pointer-events: none;
+}
+.r1 { width: 340px; height: 340px; border-color: rgba(45,106,79,0.15);  animation-duration: 30s; }
+.r2 { width: 250px; height: 250px; border-color: rgba(201,168,76,0.10); animation-duration: 20s; animation-direction: reverse; }
+.r3 { width: 160px; height: 160px; border-color: rgba(45,106,79,0.20);  animation-duration: 12s; }
+@keyframes orb-spin { to { transform: rotate(360deg); } }
+
+/* Center core */
+.orb-core {
+  position: relative; z-index: 5;
+  width: 90px; height: 90px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(45,106,79,0.4), rgba(201,168,76,0.08), transparent);
+  border: 1px solid rgba(201,168,76,0.3);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 40px rgba(45,106,79,0.3), inset 0 0 30px rgba(201,168,76,0.06);
+  animation: orb-pulse 4s ease-in-out infinite alternate;
+}
+@keyframes orb-pulse {
+  from { box-shadow: 0 0 30px rgba(45,106,79,0.25); }
+  to   { box-shadow: 0 0 70px rgba(45,106,79,0.6), 0 0 120px rgba(201,168,76,0.12); }
+}
+.orb-glyph { font-size: 36px; color: var(--gold); text-shadow: 0 0 20px rgba(201,168,76,0.7); }
+
+/* ── THE ORBIT TRACK — rotates continuously, carrying satellites ── */
+.orbit-track {
+  position: absolute;
+  inset: 0;
+  animation: full-orbit 18s linear infinite;
+}
+@keyframes full-orbit {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Each satellite is placed at its fixed angle on the track */
+.orb-satellite {
+  position: absolute;
+  top: 50%; left: 50%;
+  /* Place satellite at radius=150px at its angle */
+  transform: rotate(var(--sa)) translateX(150px) translateY(-50%);
+}
+
+/* Counter-rotate so emoji+label stays upright as track spins */
+.os-content {
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  animation: counter-orbit 18s linear infinite;
+  width: 60px;
+}
+@keyframes counter-orbit {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
+.os-emoji {
+  font-size: 28px;
+  filter: drop-shadow(0 4px 14px rgba(0,0,0,0.6));
+  transition: transform 0.3s;
+}
+.os-label {
+  font-size: 9px; letter-spacing: 1.5px;
+  color: var(--gold); text-transform: uppercase; white-space: nowrap;
+  opacity: 0.85;
+}
+
+/* Scroll hint */
+.hero-scroll {
+  position: absolute; bottom: 36px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: var(--txt-faint); font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase;
+  animation: line-rise 1s 1.5s both;
+}
+.scroll-mouse {
+  width: 22px; height: 36px; border-radius: 11px;
+  border: 1px solid rgba(201,168,76,0.3);
+  display: flex; justify-content: center; padding: 5px 0;
+}
+.scroll-ball {
+  width: 4px; height: 8px; border-radius: 2px;
+  background: var(--gold); opacity: 0.6;
+  animation: scroll-fall 2s ease-in-out infinite;
+}
+@keyframes scroll-fall {
+  0%  { transform: translateY(0); opacity: 0.6; }
+  70% { transform: translateY(12px); opacity: 0; }
+  100%{ transform: translateY(0); opacity: 0; }
+}
+
+/* ─── HOME FEATURED CATEGORIES ─── */
+.home-featured { padding: 80px 0; position: relative; z-index: 2; }
+.home-featured-inner { max-width: 1240px; margin: 0 auto; padding: 0 44px; }
+
+.home-feat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.hfcat-card {
+  position: relative; overflow: hidden;
+  padding: 44px 24px 32px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--bg-card);
+  backdrop-filter: blur(8px);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.35s, transform 0.35s, box-shadow 0.35s;
+}
+.hfcat-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 70%, var(--cat-glow, #1a4a2a), transparent 65%);
+  opacity: 0; transition: opacity 0.4s;
+}
+.hfcat-card:hover .hfcat-bg { opacity: 1; }
+.hfcat-card:hover {
+  border-color: rgba(201,168,76,0.3);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px rgba(45,106,79,0.1);
+}
+.hfcat-emoji  { font-size: 52px; display: block; margin-bottom: 14px; transition: transform 0.3s; position: relative; z-index: 1; }
+.hfcat-card:hover .hfcat-emoji { transform: scale(1.12) translateY(-3px); }
+.hfcat-label  { font-family: 'Cinzel', serif; font-size: 15px; font-weight: 700; color: var(--txt); margin-bottom: 6px; position: relative; z-index: 1; }
+.hfcat-tag    { font-size: 10px; letter-spacing: 1.5px; color: var(--txt-dim); text-transform: uppercase; position: relative; z-index: 1; }
+.hfcat-hover-line {
+  position: absolute; bottom: 0; left: 0;
+  height: 2px; width: 0;
+  background: linear-gradient(90deg, var(--green), var(--gold));
+  transition: width 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.hfcat-card:hover .hfcat-hover-line { width: 100%; }
+
+/* View all button */
+.view-all-btn {
+  position: relative; display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 36px; border-radius: 8px;
+  border: 1px solid var(--border-h);
+  background: transparent; color: var(--gold);
+  font-family: 'Cinzel', serif; font-size: 13px; letter-spacing: 2px;
+  text-transform: uppercase; overflow: hidden;
+  transition: all 0.3s;
+}
+.view-all-btn:hover { background: rgba(201,168,76,0.06); transform: translateY(-1px); }
+.vab-shimmer {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  transform: translateX(-100%);
+}
+.view-all-btn:hover .vab-shimmer { transform: translateX(100%); transition: transform 0.5s; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .hero { flex-direction: column; padding: 100px 24px 60px; text-align: center; }
+  .hero-stats { justify-content: center; }
+  .hero-btns  { justify-content: center; }
+  .hero-eyebrow { justify-content: center; }
+  .hero-orb-wrap { width: 260px; height: 260px; }
+  .orb-ring.r1 { width: 260px; height: 260px; }
+  .orb-ring.r2 { width: 190px; height: 190px; }
+  .orb-ring.r3 { width: 120px; height: 120px; }
+  .orb-satellite { transform: rotate(var(--sa)) translateX(115px) translateY(-50%); }
+  .home-feat-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .hero-h1 { font-size: 2.6rem; }
+  .home-feat-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+}
