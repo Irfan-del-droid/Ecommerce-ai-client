@@ -1,0 +1,133 @@
+/* =============================================
+   ABOUT PAGE — Loki Stores
+============================================= */
+
+.about-hero { padding-bottom: 20px; }
+.about-inner { max-width: 1240px; margin: 0 auto; padding: 0 44px; }
+
+/* ── STATS BAR ── */
+.about-stats-bar { padding: 40px 0; border-top: 1px solid var(--border-g); border-bottom: 1px solid var(--border-g); position: relative; z-index: 2; }
+.about-stats-inner { max-width: 1240px; margin: 0 auto; padding: 0 44px; display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+.abs-item { text-align: center; padding: 20px; }
+.abs-icon  { font-size: 28px; display: block; margin-bottom: 10px; }
+.abs-num   { font-family: 'Cinzel', serif; font-size: 2.2rem; font-weight: 900; color: var(--gold); margin-bottom: 4px; }
+.abs-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--txt-dim); }
+
+/* ── STORY ── */
+.about-story { padding: 80px 0; position: relative; z-index: 2; }
+.story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+
+.story-visual { display: flex; justify-content: center; }
+.sv-orb { position: relative; width: 280px; height: 280px; display: flex; align-items: center; justify-content: center; }
+.svo-ring { position: absolute; border-radius: 50%; border: 1px dashed; animation: orb-spin linear infinite; }
+.svo-ring.r1 { width: 280px; height: 280px; border-color: rgba(45,106,79,0.2); animation-duration: 20s; }
+.svo-ring.r2 { width: 180px; height: 180px; border-color: rgba(201,168,76,0.15); animation-duration: 14s; animation-direction: reverse; }
+@keyframes orb-spin { to { transform: rotate(360deg); } }
+.svo-core { width: 100px; height: 100px; border-radius: 50%; background: radial-gradient(circle, rgba(45,106,79,0.5), transparent); border: 1px solid rgba(201,168,76,0.3); display: flex; align-items: center; justify-content: center; position: relative; z-index: 2; }
+.svo-rune { font-size: 42px; color: var(--gold); text-shadow: 0 0 30px rgba(201,168,76,0.6); }
+.svo-runes { position: absolute; inset: 0; }
+.svo-float-r {
+  position: absolute;
+  top: 50%; left: 50%;
+  font-size: 16px;
+  color: var(--gold);
+  opacity: 0.25;
+  animation: rune-orbit calc(12s + var(--i) * 2s) linear infinite;
+  transform-origin: 0 0;
+  margin-left: calc(100px * cos(var(--i) * 45deg));
+  margin-top: calc(100px * sin(var(--i) * 45deg));
+}
+@keyframes rune-orbit { to { transform: rotate(360deg); } }
+
+
+.story-p { font-size: 14px; color: var(--txt-dim); line-height: 1.8; margin-bottom: 16px; }
+.story-p em { color: var(--gold-lt); font-style: normal; font-weight: 500; }
+.story-p strong { color: var(--txt); font-weight: 600; }
+.story-sig { display: flex; align-items: center; gap: 14px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border-g); }
+.ss-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--green); border: 1px solid var(--border-h); display: flex; align-items: center; justify-content: center; font-family: 'Cinzel', serif; font-size: 18px; font-weight: 700; color: var(--gold); flex-shrink: 0; }
+.ss-name { font-weight: 600; color: var(--txt); font-size: 14px; }
+.ss-role { font-size: 11px; color: var(--gold); letter-spacing: 1px; margin-top: 2px; }
+
+/* ── VALUES ── */
+.about-values { padding: 80px 0; border-top: 1px solid var(--border-g); position: relative; z-index: 2; }
+.values-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+.val-card { padding: 32px 28px; border: 1px solid var(--border); border-radius: 16px; background: var(--bg-card); backdrop-filter: blur(8px); position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
+.val-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-4px); }
+.val-rune  { font-size: 36px; color: var(--gold); opacity: 0.6; margin-bottom: 12px; display: block; font-family: serif; }
+.val-title { font-family: 'Cinzel', serif; font-size: 16px; font-weight: 700; color: var(--txt); margin-bottom: 10px; }
+.val-desc  { font-size: 13px; color: var(--txt-dim); line-height: 1.7; }
+.val-line  { position: absolute; bottom: 0; left: 0; height: 2px; width: 0; background: linear-gradient(90deg, var(--green), var(--gold)); transition: width 0.4s cubic-bezier(0.16,1,0.3,1); }
+.val-card:hover .val-line { width: 100%; }
+
+/* ── TIMELINE ── */
+.about-timeline { padding: 80px 0; border-top: 1px solid var(--border-g); position: relative; z-index: 2; }
+.timeline { position: relative; max-width: 800px; margin: 0 auto; padding: 0 20px; }
+.tl-spine {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--border-g) 10%, var(--border-g) 90%, transparent);
+  transform: translateX(-50%);
+}
+.tl-item { position: relative; display: flex; align-items: center; margin-bottom: 48px; }
+.tl-left  { justify-content: flex-end; padding-right: calc(50% + 28px); }
+.tl-right { justify-content: flex-start; padding-left: calc(50% + 28px); }
+.tl-card { padding: 20px 24px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-card); backdrop-filter: blur(8px); max-width: 300px; transition: border-color 0.3s; }
+.tl-card:hover { border-color: rgba(201,168,76,0.3); }
+.tl-year  { font-family: 'Cinzel', serif; font-size: 12px; font-weight: 700; color: var(--gold); letter-spacing: 3px; margin-bottom: 8px; }
+.tl-title { font-size: 15px; font-weight: 600; color: var(--txt); margin-bottom: 6px; }
+.tl-desc  { font-size: 12px; color: var(--txt-dim); line-height: 1.6; }
+.tl-dot {
+  position: absolute; left: 50%; top: 50%;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--gold); border: 2px solid var(--bg);
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  box-shadow: 0 0 12px rgba(201,168,76,0.5);
+}
+
+/* ── TEAM ── */
+.about-team { padding: 80px 0; border-top: 1px solid var(--border-g); position: relative; z-index: 2; }
+.team-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; }
+.team-card {
+  text-align: center; padding: 36px 20px 28px;
+  border: 1px solid var(--border); border-radius: 16px;
+  background: var(--bg-card); backdrop-filter: blur(8px);
+  position: relative; overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.team-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-4px); }
+.tc-avatar-lg {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--green-dk); border: 2px solid var(--border-h);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cinzel', serif; font-size: 24px; font-weight: 900; color: var(--gold);
+  margin: 0 auto 12px;
+}
+.team-rune-wrap {
+  position: absolute; top: 14px; right: 14px;
+  font-size: 18px; color: var(--gold); opacity: 0.3;
+}
+.tc-name-lg { font-family: 'Cinzel', serif; font-size: 14px; font-weight: 700; color: var(--txt); margin-bottom: 4px; }
+.tc-role { font-size: 11px; color: var(--gold); letter-spacing: 1.5px; margin-bottom: 8px; opacity: 0.8; }
+.tc-city-tag { display: inline-block; font-size: 10px; color: var(--txt-dim); background: rgba(45,106,79,0.1); border: 1px solid rgba(45,106,79,0.25); padding: 3px 10px; border-radius: 100px; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .about-stats-inner { grid-template-columns: repeat(2,1fr); }
+  .story-grid { grid-template-columns: 1fr; gap: 40px; }
+  .values-grid { grid-template-columns: repeat(2,1fr); }
+  .team-grid { grid-template-columns: repeat(2,1fr); }
+  .tl-left  { padding-right: 0; justify-content: flex-end; }
+  .tl-right { padding-left: 0; }
+}
+@media (max-width: 600px) {
+  .about-inner { padding: 0 20px; }
+  .values-grid { grid-template-columns: 1fr; }
+  .team-grid { grid-template-columns: repeat(2,1fr); }
+  .timeline { padding: 0; }
+  .tl-spine { left: 16px; }
+  .tl-item { padding-left: 44px !important; padding-right: 0 !important; justify-content: flex-start !important; }
+  .tl-dot { left: 16px; }
+}
