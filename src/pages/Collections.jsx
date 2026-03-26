@@ -92,7 +92,7 @@ export default function Collections() {
   const [sort, setSort]           = useState("default");
   const [search, setSearch]       = useState("");
   const [toast, setToast]         = useState(null);
-  const { cartCount, setDrawerOpen, addToCart, addedId, wishlist, toggleWish, products, productsLoading } = useCart();
+  const { cartCount, setDrawerOpen, addToCart, addedId, wishlist, toggleWish, products } = useCart();
 
   const userName =
     location.state?.userName ||
