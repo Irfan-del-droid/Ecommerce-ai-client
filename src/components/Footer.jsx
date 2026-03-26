@@ -1,4 +1,5 @@
 import React from "react";
+// eslint-disable-next-line no-unused-vars
 import { Link } from "react-router-dom";
 
 export default function Footer() {
@@ -63,3 +64,4 @@ export default function Footer() {
     </footer>
   );
 }
+
