@@ -1,0 +1,211 @@
+/* =============================================
+   COLLECTIONS PAGE — Shiny Cards (Task 4)
+============================================= */
+
+.coll-hero { padding-bottom: 20px; }
+.coll-count {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 12px;
+  color: var(--green-lt);
+  background: rgba(45,106,79,0.15);
+  border: 1px solid rgba(45,106,79,0.3);
+  padding: 2px 10px;
+  border-radius: 100px;
+  vertical-align: middle;
+}
+
+.coll-section { padding: 0 0 80px; position: relative; z-index: 2; }
+.coll-inner { max-width: 1240px; margin: 0 auto; padding: 0 44px; }
+
+/* ── TOOLBAR ── */
+.coll-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.coll-search-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+  max-width: 400px;
+  display: flex;
+  align-items: center;
+}
+.cs-icon {
+  position: absolute;
+  left: 14px;
+  font-size: 13px;
+  color: var(--txt-dim);
+  pointer-events: none;
+}
+.coll-search {
+  width: 100%;
+  padding: 11px 40px 11px 38px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: rgba(8,12,8,0.8);
+  color: var(--txt);
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.coll-search:focus { border-color: var(--border-h); }
+.coll-search::placeholder { color: var(--txt-faint); }
+.cs-clear {
+  position: absolute; right: 10px;
+  width: 20px; height: 20px; border-radius: 50%;
+  border: 1px solid var(--border); background: transparent;
+  color: var(--txt-dim); font-size: 10px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.cs-clear:hover { border-color: var(--error); color: var(--error); }
+
+.coll-sort-wrap { flex-shrink: 0; }
+.coll-sort {
+  padding: 11px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: rgba(8,12,8,0.8);
+  color: var(--txt-dim);
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+.coll-sort:focus { border-color: var(--border-h); }
+.coll-sort option { background: #0a0f0a; }
+
+/* ═══════════════════════════════════════════
+   SHINY PRODUCT CARD — Task 4
+   3D tilt + radial shine + streak + edge glow
+   ═══════════════════════════════════════════*/
+.shiny-prod-card {
+  position: relative;
+  transition: transform 0.25s cubic-bezier(0.23,1,0.32,1),
+              box-shadow 0.25s,
+              border-color 0.3s;
+  transform-style: preserve-3d;
+  will-change: transform;
+  overflow: visible !important; /* allow overflow for glow */
+}
+
+/* Radial light that follows cursor */
+.sc-shine-radial {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--shine-x, 50%) var(--shine-y, 50%),
+    rgba(232,201,106,0.22) 0%,
+    rgba(201,168,76,0.08) 30%,
+    transparent 60%
+  );
+  pointer-events: none;
+  z-index: 20;
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* Diagonal streak — gold shimmer */
+.sc-shine-streak {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(232,201,106,0.06) calc(var(--shine-x, 50%) - 10%),
+    rgba(232,201,106,0.14) var(--shine-x, 50%),
+    rgba(232,201,106,0.06) calc(var(--shine-x, 50%) + 10%),
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 19;
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* Edge highlight — makes card look like it has depth */
+.sc-edge-light {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: 
+    linear-gradient(135deg, rgba(201,168,76,0.12) 0%, transparent 30%),
+    linear-gradient(315deg, rgba(45,106,79,0.08) 0%, transparent 30%);
+  pointer-events: none;
+  z-index: 18;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.shiny-prod-card:hover .sc-shine-radial,
+.shiny-prod-card:hover .sc-shine-streak,
+.shiny-prod-card:hover .sc-edge-light {
+  opacity: 1;
+}
+
+/* Enhanced hover state for shiny card */
+.shiny-prod-card:hover {
+  box-shadow:
+    0 24px 70px rgba(0,0,0,0.6),
+    0 0 40px rgba(45,106,79,0.15),
+    0 0 0 1px rgba(201,168,76,0.2),
+    inset 0 1px 0 rgba(201,168,76,0.08);
+  border-color: rgba(201,168,76,0.35) !important;
+}
+
+/* Make visual section look more premium */
+.shiny-prod-card .pc-visual {
+  position: relative;
+  overflow: hidden;
+}
+.shiny-prod-card .pc-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(4,6,5,0.6) 100%
+  );
+}
+.shiny-prod-card:hover .pc-visual::after {
+  background: linear-gradient(
+    to bottom,
+    transparent 40%,
+    rgba(4,6,5,0.4) 100%
+  );
+}
+
+/* ── EMPTY STATE ── */
+.coll-empty {
+  text-align: center;
+  padding: 80px 20px;
+  grid-column: 1 / -1;
+}
+.coll-empty-rune {
+  font-size: 60px;
+  color: var(--green-lt);
+  opacity: 0.2;
+  display: block;
+  margin-bottom: 16px;
+}
+.coll-empty p { color: var(--txt-dim); font-size: 15px; margin-bottom: 24px; }
+
+@media (max-width: 768px) {
+  .coll-inner { padding: 0 20px; }
+  .coll-toolbar { flex-direction: column; align-items: stretch; }
+  .coll-search-wrap { max-width: 100%; }
+}
