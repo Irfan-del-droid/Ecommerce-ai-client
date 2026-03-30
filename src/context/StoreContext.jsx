@@ -1,20 +1,6 @@
 import React, { createContext, useContext, useState, useCallback, useEffect } from "react";
 
-/* ============================================================
-   API CONFIGURATION
-============================================================ */
-export const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
-
-// Helper function for authenticated API calls
-export const apiCall = async (endpoint, options = {}) => {
-  const token = localStorage.getItem('lokiToken') || sessionStorage.getItem('lokiToken');
-  const headers = { 'Content-Type': 'application/json', ...options.headers };
-  if (token) headers['Authorization'] = `Bearer ${token}`;
-  const res = await fetch(`${API_BASE_URL}${endpoint}`, { ...options, headers });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error || 'Something went wrong');
-  return data;
-};
+import { products as apiProducts } from "../api";
 
 export const CATEGORIES = ["All", "Clothing", "Footwear", "Accessories", "Grooming"];
 
@@ -38,7 +24,7 @@ export function CartProvider({ children }) {
       try {
         setProductsLoading(true);
         setProductsError(null);
-        const data = await apiCall('/api/products');
+        const data = await apiProducts.getAll();
         setProducts(data);
       } catch (err) {
         console.error('Failed to fetch products:', err);
@@ -67,7 +53,7 @@ export function CartProvider({ children }) {
   return (
     <CartContext.Provider value={{ 
       cart, addToCart, removeItem, wishlist, toggleWish, cartTotal, cartCount, drawerOpen, setDrawerOpen, addedId,
-      products, productsLoading, productsError, apiCall, API_BASE_URL
+      products, productsLoading, productsError
     }}>
       {children}
     </CartContext.Provider>

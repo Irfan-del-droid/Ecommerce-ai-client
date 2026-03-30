@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import "./Landing.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { useCart, CATEGORIES, API_BASE_URL } from "../context/StoreContext";
+import { useCart, CATEGORIES } from "../context/StoreContext";
 import {
   GravityField,
   Typewriter,
@@ -15,6 +15,7 @@ import {
   SpotlightSection,
   StaggerIn,
 } from "../components/Interactivity";
+import { newsletter as apiNewsletter } from "../api";
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -44,22 +45,13 @@ export default function Landing() {
     }
     setNlLoading(true);
     try {
-      const res = await fetch(`${API_BASE_URL}/api/newsletter/subscribe`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: nlEmail })
-      });
-      const data = await res.json();
+      const data = await apiNewsletter.subscribe(nlEmail);
       setNlLoading(false);
-      if (!res.ok) {
-        setToast({ msg: data.error || "Subscription failed. Please try again.", type: "error" });
-        return;
-      }
       setNlEmail("");
       setToast({ msg: data.message || "Welcome to the Brotherhood!", type: "success" });
     } catch (err) {
       setNlLoading(false);
-      setToast({ msg: "Network error. Please try again.", type: "error" });
+      setToast({ msg: err.message || "Network error. Please try again.", type: "error" });
     }
   };
 

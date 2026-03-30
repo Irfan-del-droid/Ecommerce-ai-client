@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { useCart, API_BASE_URL } from "../context/StoreContext";
+import { useCart } from "../context/StoreContext";
 import {
   GravityField, Typewriter,
   CountUp, Reveal, GlitchTitle, Toast, Marquee
 } from "../components/Interactivity";
+import { newsletter as apiNewsletter } from "../api";
 import "../index.css";
 import "./Home.css";
 
@@ -59,22 +60,13 @@ export default function Home() {
     }
     setNlLoading(true);
     try {
-      const res = await fetch(`${API_BASE_URL}/api/newsletter/subscribe`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: nlEmail })
-      });
-      const data = await res.json();
+      const data = await apiNewsletter.subscribe(nlEmail);
       setNlLoading(false);
-      if (!res.ok) {
-        setToast({ msg: data.error || "Subscription failed. Please try again.", type: "error" });
-        return;
-      }
       setNlEmail("");
       setToast({ msg: data.message || "Welcome to the Brotherhood!", type: "success" });
     } catch (err) {
       setNlLoading(false);
-      setToast({ msg: "Network error. Please try again.", type: "error" });
+      setToast({ msg: err.message || "Network error. Please try again.", type: "error" });
     }
   };
 

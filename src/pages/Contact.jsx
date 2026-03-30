@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { useCart, API_BASE_URL } from "../context/StoreContext";
+import { useCart } from "../context/StoreContext";
 import { GravityField, Reveal, GlitchTitle, Toast } from "../components/Interactivity";
+import { contact as apiContact } from "../api";
 import "../index.css";
 import "./Contact.css";
 
@@ -37,25 +38,14 @@ export default function Contact() {
     setSending(true);
     
     try {
-      const res = await fetch(`${API_BASE_URL}/api/contact`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form)
-      });
-      const data = await res.json();
+      const data = await apiContact.sendMessage(form);
       
       setSending(false);
-      
-      if (!res.ok) {
-        setToast({ msg: data.error || "Failed to send message. Please try again.", type: "error" });
-        return;
-      }
-      
       setForm({ name:"", email:"", subject:"", message:"" });
       setToast({ msg: data.message || "Message sent to the realm! We'll respond within 24h.", type: "success" });
     } catch (err) {
       setSending(false);
-      setToast({ msg: "Network error. Please check your connection and try again.", type: "error" });
+      setToast({ msg: err.message || "Network error. Please check your connection and try again.", type: "error" });
     }
   };
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
-import { API_BASE_URL } from "../context/StoreContext";
+import { auth } from "../api";
 import "./Login.css";
 
 // React Bits: Particle field background
@@ -93,31 +93,25 @@ const Login = () => {
       
       if (accessToken) {
         setLoading(true);
-        // Call backend API to authenticate with Google
-        fetch(`${API_BASE_URL}/api/auth/google`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ accessToken })
-        })
-        .then(res => res.json())
-        .then(data => {
-          setLoading(false);
-          if (data.token && data.user) {
-            // Store token and user info
-            localStorage.setItem("lokiToken", data.token);
-            localStorage.setItem("lokiLoggedIn", JSON.stringify({ email: data.user.email, name: data.user.firstName }));
-            // Clear hash
-            window.history.replaceState({}, document.title, window.location.pathname);
-            navigate("/", { state: { userName: data.user.firstName } });
-          } else {
-            setErrors({ form: data.error || "Google authentication failed. Please try again." });
-          }
-        })
-        .catch(err => {
-          console.error("Google Auth Error:", err);
-          setLoading(false);
-          setErrors({ form: "Google authentication failed. Please try again." });
-        });
+        auth.googleAuth(accessToken)
+          .then(data => {
+            setLoading(false);
+            if (data.token && data.user) {
+              // Store token and user info
+              localStorage.setItem("lokiToken", data.token);
+              localStorage.setItem("lokiLoggedIn", JSON.stringify({ email: data.user.email, name: data.user.firstName }));
+              // Clear hash
+              window.history.replaceState({}, document.title, window.location.pathname);
+              navigate("/", { state: { userName: data.user.firstName } });
+            } else {
+              setErrors({ form: data.error || "Google authentication failed. Please try again." });
+            }
+          })
+          .catch(err => {
+            console.error("Google Auth Error:", err);
+            setLoading(false);
+            setErrors({ form: "Google authentication failed. Please try again." });
+          });
       }
     }
   }, [location.state, navigate]);
@@ -145,19 +139,9 @@ const Login = () => {
     setErrors({});
 
     try {
-      const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: formData.email, password: formData.password })
-      });
-      const data = await res.json();
+      const data = await auth.login({ email: formData.email, password: formData.password });
       
       setLoading(false);
-      
-      if (!res.ok) {
-        setErrors({ form: data.error || "Invalid email or password. Please try again." });
-        return;
-      }
 
       // Store token based on rememberMe preference
       if (rememberMe) {

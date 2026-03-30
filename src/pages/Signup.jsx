@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { API_BASE_URL } from "../context/StoreContext";
 import "./Signup.css";
 
 // React Bits: Aurora animated background
@@ -97,25 +96,15 @@ const Signup = () => {
     setErrors({});
 
     try {
-      const res = await fetch(`${API_BASE_URL}/api/auth/signup`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
-          phone: formData.phone,
-          password: formData.password,
-        })
+      const data = await auth.signup({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        password: formData.password,
       });
-      const data = await res.json();
 
       setLoading(false);
-
-      if (!res.ok) {
-        setErrors({ form: data.error || "Signup failed. Please try again." });
-        return;
-      }
 
       // Store token and user info
       localStorage.setItem("lokiToken", data.token);
@@ -123,7 +112,7 @@ const Signup = () => {
       navigate("/", { state: { userName: data.user.firstName } });
     } catch (err) {
       setLoading(false);
-      setErrors({ form: "Network error. Please check your connection and try again." });
+      setErrors({ form: err.message || "Network error. Please check your connection and try again." });
     }
   };
 
