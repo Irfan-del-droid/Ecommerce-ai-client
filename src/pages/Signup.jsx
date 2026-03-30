@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { auth } from "../api";
 import "./Signup.css";
 
 // React Bits: Aurora animated background
