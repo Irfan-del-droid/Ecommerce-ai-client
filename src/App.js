@@ -26,7 +26,7 @@ function App() {
         <MagneticCursor />
         <BurstLayer />
         <CartDrawer />
-        <BrowserRouter>
+        <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <Routes>
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
