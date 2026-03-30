@@ -89,7 +89,7 @@ export const newsletter = {
   }),
 };
 
-export default {
+const api = {
   auth,
   products,
   contact,
@@ -97,3 +97,5 @@ export default {
   apiCall,
   API_BASE_URL
 };
+
+export default api;
