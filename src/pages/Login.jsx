@@ -139,7 +139,10 @@ const Login = () => {
     setErrors({});
 
     try {
-      const data = await auth.login({ email: formData.email, password: formData.password });
+      const data = await auth.login({
+        email: formData.email.trim().toLowerCase(),
+        password: formData.password
+      });
       
       setLoading(false);
 
@@ -154,12 +157,17 @@ const Login = () => {
       navigate("/", { state: { userName: data.user.firstName } });
     } catch (err) {
       setLoading(false);
-      setErrors({ form: "Network error. Please check your connection and try again." });
+      setErrors({
+        form:
+          err.message && !err.message.includes('Failed to fetch')
+            ? err.message
+            : 'Network error. Please check your connection and try again.'
+      });
     }
   };
 
   const handleGoogleAuth = () => {
-    const clientId = "750710614115-8pkg5uue2cpg3copj3jnmhpr70v8eqc1.apps.googleusercontent.com";
+    const clientId = "750710614115-gnd3ut5a6on8jgm5qgo6vssusmngb1ji.apps.googleusercontent.com";
     const redirectUri = encodeURIComponent(window.location.origin + "/login");
     const scope = encodeURIComponent("openid email profile");
     const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=${scope}`;

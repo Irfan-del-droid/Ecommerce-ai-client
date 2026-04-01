@@ -25,7 +25,7 @@ export function CartProvider({ children }) {
         setProductsLoading(true);
         setProductsError(null);
         const data = await apiProducts.getAll();
-        setProducts(data);
+        setProducts(data.results || []);
       } catch (err) {
         console.error('Failed to fetch products:', err);
         setProductsError(err.message);
